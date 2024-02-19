@@ -16,7 +16,7 @@ abstract class AppTheme {
     appBarTheme: const AppBarTheme(
       color: AppColors.primary,
       elevation: 0,
-      titleTextStyle: appBarTextStyle
+      titleTextStyle: appBarTextStyle,
     ),
     scaffoldBackgroundColor: AppColors.accent,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -26,6 +26,10 @@ abstract class AppTheme {
       unselectedIconTheme: IconThemeData(size: 32),
       selectedItemColor: AppColors.primary,
       unselectedItemColor: AppColors.grey
-    )
+    ),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      shape: StadiumBorder(side: BorderSide(color: AppColors.white, width: 4)),
+    ),
+    dividerTheme: const DividerThemeData(thickness: 3, color: AppColors.primary)
   );
 }
