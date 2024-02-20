@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: buildAppBar(),
       bottomNavigationBar: buildBotNavBar(),
-      body: curSelectedTabIndex == 0 ? const ListTab() : const SettingsTab(),
+      body: curSelectedTabIndex == 0 ?  ListTab() : const SettingsTab(),
       floatingActionButton: buildFab(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
@@ -59,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
               context: context,
               builder: (_) => Padding(
                     padding: MediaQuery.of(context).viewInsets,
-                    child: const AddBottomSheet(),
+                    child: AddBottomSheet(),
                   ));
         },
         child: const ImageIcon(AssetImage(AppAssets.addIcon)),

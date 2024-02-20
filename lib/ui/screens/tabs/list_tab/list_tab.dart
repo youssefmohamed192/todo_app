@@ -1,10 +1,12 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_app/models/todo_dm.dart';
 import 'package:todo_app/ui/screens/tabs/list_tab/todo_widget.dart';
 import 'package:todo_app/ui/utils/app_colors.dart';
 
 class ListTab extends StatelessWidget {
-  const ListTab({super.key});
+  List<TodoDM> todos = [] ;
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +39,15 @@ class ListTab extends StatelessWidget {
         ),
         Expanded(
           child: ListView.builder(
-            itemCount: 10,
-            itemBuilder: (context, index) => const TodoWidget(),
+            itemCount: todos.length,
+            itemBuilder: (context, index) =>  TodoWidget(model: todos[index]),
           ),
         ),
       ],
     );
   }
+  // void refreshTodosList() {
+  //   FirebaseFirestore.instance.collection(TodoDM.collectionName);
+  //
+  // }
 }
