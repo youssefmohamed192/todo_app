@@ -1,15 +1,36 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class TodoDM {
-  String id;
-  String title;
-  String description;
-  DateTime selectedDay;
-  bool isDone;
+  late String id;
+  late String title;
+  late String description;
+  late DateTime date;
+  late bool isDone;
   static const collectionName = "todos";
 
   TodoDM(
       {required this.id,
       required this.title,
       required this.description,
-      required this.selectedDay,
+      required this.date,
       required this.isDone});
+
+  TodoDM.fromJson(Map json) {
+    id = json["id"];
+    title = json["tittle"];
+    description = json["description"];
+    Timestamp time = json["date"];
+    date = time.toDate();
+    isDone = json["isDone"];
+  }
+
+  Map<String, Object> toJson() {
+    return {
+      "id": id,
+      "title": title,
+      "description": description,
+      "date": date,
+      "isDone": isDone
+    };
+  }
 }

@@ -3,7 +3,6 @@ import 'package:todo_app/ui/screens/bottom_sheets/add_bottom_sheet.dart';
 import 'package:todo_app/ui/screens/tabs/list_tab/list_tab.dart';
 import 'package:todo_app/ui/screens/tabs/settings_tab/settings_tab.dart';
 import 'package:todo_app/ui/utils/app_assets.dart';
-import 'package:todo_app/ui/utils/app_colors.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = "home";

@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_app/models/todo_dm.dart';
+import 'package:todo_app/ui/providers/list_provider.dart';
 import 'package:todo_app/ui/utils/app_colors.dart';
 import 'package:todo_app/ui/utils/app_theme.dart';
 import 'package:todo_app/ui/widgets/app_text_field.dart';
@@ -14,13 +16,15 @@ class _AddBottomSheetState extends State<AddBottomSheet> {
   DateTime selectedDay = DateTime.now();
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+  late ListProvider provider;
 
   @override
   Widget build(BuildContext context) {
+    provider = Provider.of(context);
     var size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.all(12.0),
-      child: Container(
+      child: SizedBox(
         height: size.height * .4,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -84,7 +88,9 @@ class _AddBottomSheetState extends State<AddBottomSheet> {
       "description": descriptionController.text,
       "date": selectedDay,
       "isDone": false
-    }).timeout(Duration(milliseconds: 300),
-        onTimeout: () => Navigator.pop(context));
+    }).timeout(const Duration(milliseconds: 300), onTimeout: () {
+      provider.refreshTodosList();
+      Navigator.pop(context);
+    });
   }
 }
