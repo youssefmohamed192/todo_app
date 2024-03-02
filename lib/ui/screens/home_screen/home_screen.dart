@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/ui/screens/bottom_sheets/add_bottom_sheet.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/models/App_user.dart';
+import 'package:todo_app/ui/bottom_sheets/add_bottom_sheet.dart';
+import 'package:todo_app/ui/providers/list_provider.dart';
+import 'package:todo_app/ui/screens/auth/login/login_screen.dart';
 import 'package:todo_app/ui/screens/tabs/list_tab/list_tab.dart';
 import 'package:todo_app/ui/screens/tabs/settings_tab/settings_tab.dart';
 import 'package:todo_app/ui/utils/app_assets.dart';
@@ -15,21 +19,35 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int curSelectedTabIndex = 0;
+  late ListProvider provider;
 
   @override
   Widget build(BuildContext context) {
+    provider = Provider.of(context);
     return Scaffold(
       appBar: buildAppBar(),
       bottomNavigationBar: buildBotNavBar(),
-      body: curSelectedTabIndex == 0 ?  ListTab() : const SettingsTab(),
+      body: curSelectedTabIndex == 0 ? ListTab() : const SettingsTab(),
       floatingActionButton: buildFab(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 
   PreferredSizeWidget buildAppBar() => AppBar(
-        title: const Text("To Do List"),
+        title: Text("Welcome ${AppUser.currentUser!.username}"),
         toolbarHeight: MediaQuery.of(context).size.height * .12,
+        actions: [
+          InkWell(
+              onTap: (){
+                AppUser.currentUser = null;
+                provider.todos.clear();
+                Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(right: 12),
+                child: Icon(Icons.logout),
+              ))
+        ],
       );
 
   Widget buildBotNavBar() => BottomAppBar(

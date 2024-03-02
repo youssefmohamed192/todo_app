@@ -3,6 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/ui/providers/list_provider.dart';
+import 'package:todo_app/ui/screens/auth/login/login_screen.dart';
+import 'package:todo_app/ui/screens/auth/register/register_screen.dart';
 import 'package:todo_app/ui/screens/home_screen/home_screen.dart';
 import 'package:todo_app/ui/screens/splash_screen/splash_screen.dart';
 import 'package:todo_app/ui/utils/app_theme.dart';
@@ -12,7 +14,7 @@ void main() async {
   await Firebase.initializeApp();
   FirebaseFirestore.instance.settings =
       const Settings(cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED);
-  await FirebaseFirestore.instance.disableNetwork();
+  // await FirebaseFirestore.instance.disableNetwork();
   runApp(ChangeNotifierProvider(
       create: (context) => ListProvider(),
       child: const MyApp()));
@@ -27,10 +29,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         theme: AppTheme.lightTheme,
         routes: {
-      SplashScreen.routeName: (_) => const SplashScreen(),
-      HomeScreen.routeName: (_) => const HomeScreen()
+      SplashScreen.routeName : (_) => const SplashScreen(),
+      HomeScreen.routeName : (_) => const HomeScreen(),
+      LoginScreen.routeName : (_) => LoginScreen(),
+      RegisterScreen.routeName : (_) => RegisterScreen()
     },
-        initialRoute: HomeScreen.routeName,
+        initialRoute: LoginScreen.routeName,
     );
   }
 }
