@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app/models/App_user.dart';
+import 'package:todo_app/models/app_user.dart';
 import 'package:todo_app/ui/bottom_sheets/add_bottom_sheet.dart';
 import 'package:todo_app/ui/providers/list_provider.dart';
 import 'package:todo_app/ui/screens/auth/login/login_screen.dart';
 import 'package:todo_app/ui/screens/tabs/list_tab/list_tab.dart';
 import 'package:todo_app/ui/screens/tabs/settings_tab/settings_tab.dart';
 import 'package:todo_app/ui/utils/app_assets.dart';
+import 'package:todo_app/ui/utils/app_colors.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = "home";
@@ -38,19 +39,20 @@ class _HomeScreenState extends State<HomeScreen> {
         toolbarHeight: MediaQuery.of(context).size.height * .12,
         actions: [
           InkWell(
-              onTap: (){
+              onTap: () {
                 AppUser.currentUser = null;
                 provider.todos.clear();
                 Navigator.pushReplacementNamed(context, LoginScreen.routeName);
               },
-              child: Padding(
-                padding: const EdgeInsets.only(right: 12),
-                child: Icon(Icons.logout),
+              child: const Padding(
+                padding: EdgeInsets.only(right: 12),
+                child: Icon(Icons.logout, color: AppColors.accent,),
               ))
         ],
       );
 
   Widget buildBotNavBar() => BottomAppBar(
+        padding: const EdgeInsets.all(0),
         shape: const CircularNotchedRectangle(),
         notchMargin: 8,
         clipBehavior: Clip.hardEdge,
@@ -70,6 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
       );
 
   Widget buildFab() => FloatingActionButton(
+        backgroundColor: AppColors.primary,
         onPressed: () {
           showModalBottomSheet(
               isScrollControlled: true,
@@ -79,6 +82,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: AddBottomSheet(),
                   ));
         },
-        child: const ImageIcon(AssetImage(AppAssets.addIcon)),
+        child: const ImageIcon(
+          AssetImage(AppAssets.addIcon),
+          color: AppColors.white,
+        ),
       );
 }

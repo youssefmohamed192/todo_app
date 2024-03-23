@@ -1,4 +1,5 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/ui/providers/list_provider.dart';
@@ -32,23 +33,25 @@ class _ListTabState extends State<ListTab> {
               Column(
                 children: [
                   Expanded(flex: 3, child: Container(color: AppColors.primary)),
-                  Expanded(flex: 9, child: Container(color: AppColors.accent)),
+                  Expanded(flex: 8, child: Container(color: AppColors.accent)),
                 ],
               ),
-              CalendarTimeline(
-                initialDate: provider.selectedDay,
-                firstDate: DateTime.now().subtract(const Duration(days: 365)),
-                lastDate: DateTime.now().add(const Duration(days: 365)),
-                onDateSelected: (date) {
-                  provider.selectedDay = date;
-                  provider.refreshTodosList();
-                },
-                leftMargin: 20,
-                monthColor: AppColors.lightBlack,
-                dayColor: AppColors.lightBlack,
-                activeDayColor: AppColors.primary,
-                activeBackgroundDayColor: AppColors.white,
-                dotsColor: AppColors.transparent,
+              Positioned.fill(
+                child: CalendarTimeline(
+                  initialDate: provider.selectedDay,
+                  firstDate: DateTime.now().subtract(const Duration(days: 365)),
+                  lastDate: DateTime.now().add(const Duration(days: 365)),
+                  onDateSelected: (date) {
+                    provider.selectedDay = date;
+                    provider.refreshTodosList();
+                  },
+                  leftMargin: 20,
+                  monthColor: AppColors.lightBlack,
+                  dayColor: AppColors.lightBlack,
+                  activeDayColor: AppColors.primary,
+                  activeBackgroundDayColor: AppColors.white,
+                  dotsColor: AppColors.transparent,
+                ),
               ),
             ],
           ),

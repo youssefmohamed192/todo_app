@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app/models/App_user.dart';
+import 'package:todo_app/models/app_user.dart';
 import 'package:todo_app/models/todo_dm.dart';
 import 'package:todo_app/ui/providers/list_provider.dart';
 import 'package:todo_app/ui/utils/app_colors.dart';
@@ -61,7 +61,13 @@ class _AddBottomSheetState extends State<AddBottomSheet> {
               onPressed: () {
                 addTodoToFireStore();
               },
-              child: const Text("Add"),
+              style:
+                  ElevatedButton.styleFrom(backgroundColor: AppColors.primary),
+              child: Text(
+                "Add",
+                style: AppTheme.bottomSheetTittleTextStyle
+                    .copyWith(color: AppColors.white),
+              ),
             )
           ],
         ),
@@ -80,12 +86,13 @@ class _AddBottomSheetState extends State<AddBottomSheet> {
   }
 
   void addTodoToFireStore() async {
-    CollectionReference todosCollectionRef =
-        AppUser.collection().doc(AppUser.currentUser!.id).collection(TodoDM.collectionName);
+    CollectionReference todosCollectionRef = AppUser.collection()
+        .doc(AppUser.currentUser!.id)
+        .collection(TodoDM.collectionName);
     DocumentReference newEmptyDoc = todosCollectionRef.doc();
     await newEmptyDoc.set({
       "id": newEmptyDoc.id,
-      "tittle": titleController.text,
+      "title": titleController.text,
       "description": descriptionController.text,
       "date": selectedDay,
       "isDone": false

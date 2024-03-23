@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_app/models/App_user.dart';
+import 'package:todo_app/models/app_user.dart';
 import 'package:todo_app/ui/screens/auth/register/register_screen.dart';
 import 'package:todo_app/ui/screens/home_screen/home_screen.dart';
-import 'package:todo_app/ui/utils/app_assets.dart';
 import 'package:todo_app/ui/utils/app_colors.dart';
 import 'package:todo_app/ui/utils/app_theme.dart';
 import 'package:todo_app/ui/utils/dialog_utils.dart';
@@ -12,7 +11,7 @@ import 'package:todo_app/ui/utils/dialog_utils.dart';
 class LoginScreen extends StatefulWidget {
   static const String routeName = "login";
 
-  LoginScreen({super.key});
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -20,7 +19,6 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   String email = "";
-
   String password = "";
 
   @override
@@ -67,13 +65,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 16, horizontal: 12),
                     child: Row(
                       children: [
-                        Text("Login", style: TextStyle(fontSize: 18)),
-                        Spacer(),
-                        Icon(
+                        Text("Login",
+                            style: AppTheme.bottomSheetTittleTextStyle
+                                .copyWith(color: AppColors.white)),
+                        const Spacer(),
+                        const Icon(
                           Icons.arrow_forward,
                           color: AppColors.white,
                         )

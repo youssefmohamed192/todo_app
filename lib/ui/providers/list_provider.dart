@@ -1,13 +1,15 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_app/models/App_user.dart';
+import 'package:todo_app/models/app_user.dart';
 import 'package:todo_app/models/todo_dm.dart';
 
 class ListProvider extends ChangeNotifier {
   List<TodoDM> todos = [];
   DateTime selectedDay = DateTime.now();
 
-  refreshTodosList() async {
+  Future<void> refreshTodosList() async {
     CollectionReference<TodoDM> todosCollection = AppUser.collection()
         .doc(AppUser.currentUser!.id)
         .collection(TodoDM.collectionName)
@@ -41,5 +43,32 @@ class ListProvider extends ChangeNotifier {
       }
     }).toList();
     notifyListeners();
+  }
+
+  Future<void> clickOnIsDone(TodoDM todoDM) async {
+    await AppUser.collection()
+        .doc(AppUser.currentUser!.id)
+        .collection(TodoDM.collectionName)
+        .doc(todoDM.id)
+        .set(todoDM.toJson());
+    await refreshTodosList();
+  }
+
+  Future<void> clickOnDelete(String taskID) async {
+    await AppUser.collection()
+        .doc(AppUser.currentUser!.id)
+        .collection(TodoDM.collectionName)
+        .doc(taskID)
+        .delete();
+    await refreshTodosList();
+  }
+
+ Future<void> clickOnSaveChanges(TodoDM todoDM) async{
+    await AppUser.collection()
+        .doc(AppUser.currentUser!.id)
+        .collection(TodoDM.collectionName)
+        .doc(todoDM.id)
+        .set(todoDM.toJson());
+    await refreshTodosList();
   }
 }
